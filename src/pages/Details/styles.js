@@ -1,4 +1,3 @@
-import { Carousel } from "react-bootstrap"
 import styled from "styled-components"
 
 export const Container = styled.div`
@@ -23,6 +22,16 @@ export const Container = styled.div`
     padding: 0 32px;
     align-items: center;
 
+    .comments {
+      display: flex;
+      width: 100%;
+      flex-direction: column;
+      gap: 12px;
+
+      .date {
+        font-size: 12px;
+      }
+    }
     .card {
       background-color: ${({ theme }) => theme.COLORS.BACKGROUND_FORM};
     }
@@ -30,15 +39,5 @@ export const Container = styled.div`
     .card-title {
       color: ${({ theme }) => theme.COLORS.TEXT_FOOTER};
     }
-  }
-`
-
-export const AttractionBanner = styled(Carousel)`
-  max-width: 750px;
-  margin: 22px auto;
-
-  img {
-    width: 100%;
-    object-fit: cover;
   }
 `

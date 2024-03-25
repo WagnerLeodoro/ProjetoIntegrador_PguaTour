@@ -1,74 +1,57 @@
+import { useEffect, useState } from "react"
+import { Carousel } from "react-bootstrap"
+
+import { api } from "../../services/api"
+
 import { Container } from "./styles"
-import cardImg from "../../assets/img/card-img.jpg"
-export function Card() {
+import { useNavigate } from "react-router-dom"
+
+export function Card({ name, description, id }) {
+  const [images, setImages] = useState([])
+
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    async function fetchData() {
+      const response = await api.get(`/points/`)
+      const [data] = response.data
+      const imageUrl = data.images
+      const link = imageUrl.map((image) => image.link_image)
+
+      setImages(link)
+    }
+
+    fetchData()
+  }, [])
+  const [index, setIndex] = useState(0)
+
+  const handleSelect = (selectedIndex, e) => {
+    setIndex(selectedIndex)
+  }
   return (
     <Container className="wrap">
       <div className="tourismCard">
-        <div id="carouselOne" className="carousel slide" data-ride="carousel">
-          <ol className="carousel-indicators">
-            <li
-              data-target="#carouselOne"
-              data-slide-to="0"
-              className="active"
-            ></li>
-            <li data-target="#carouselOne" data-slide-to="1"></li>
-            <li data-target="#carouselOne" data-slide-to="2"></li>
-          </ol>
-          <div className="carousel-inner h-auto">
-            <div className="carousel-item active carousel">
-              <img src={cardImg} alt="Primeiro Slide" />
-            </div>
-            <div className="carousel-item">
-              <img
-                className="d-block w-100"
-                src={cardImg}
-                alt="Segundo Slide"
-              />
-            </div>
-            <div className="carousel-item">
-              <img
-                className="d-block w-100"
-                src={cardImg}
-                alt="Terceiro Slide"
-              />
-            </div>
-          </div>
-          <a
-            className="carousel-control-prev"
-            href="#carouselOne"
-            role="button"
-            data-slide="prev"
-          >
-            <span
-              className="carousel-control-prev-icon"
-              aria-hidden="true"
-            ></span>
-            <span className="sr-only">Anterior</span>
-          </a>
-          <a
-            className="carousel-control-next"
-            href="#carouselOne"
-            role="button"
-            data-slide="next"
-          >
-            <span
-              className="carousel-control-next-icon"
-              aria-hidden="true"
-            ></span>
-            <span className="sr-only">Próximo</span>
-          </a>
-        </div>
+        <Carousel
+          activeIndex={index}
+          onSelect={handleSelect}
+          className="container carousel-img"
+        >
+          {images.map((image, i) => (
+            <Carousel.Item key={i}>
+              <img className="w-100" src={image} alt={image} />
+            </Carousel.Item>
+          ))}
+        </Carousel>
 
         <div className="cardContent">
-          <h2>Título</h2>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam
-            quaerat quidem quasi, quod quibusdam quae, quod quaerat quasi, quod
-            quaerat quasi, quod quaerat quasi, quod quaerat quasi, quod quaerat
-            quasi, quod quaerat quasi, quod quaerat quasi, quod quaerat quas
-          </p>
+          <h2>{name}</h2>
+          <p>{description}</p>
 
-          <button type="button" className="btn btn-info">
+          <button
+            type="button"
+            className="btn btn-info"
+            onClick={() => navigate(`/details/${id}`)}
+          >
             Saiba Mais <i className="bi bi-geo-alt-fill"></i>
           </button>
         </div>

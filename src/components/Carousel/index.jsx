@@ -1,7 +1,8 @@
 import React, { useState } from "react"
+import { AttractionBanner } from "./styles"
 import { Carousel } from "react-bootstrap"
 
-const ImageCarousel = ({ images }) => {
+export function ImageCarousel({ images }) {
   const [index, setIndex] = useState(0)
 
   const handleSelect = (selectedIndex, e) => {
@@ -9,17 +10,16 @@ const ImageCarousel = ({ images }) => {
   }
 
   return (
-    <Carousel activeIndex={index} onSelect={handleSelect}>
+    <AttractionBanner
+      activeIndex={index}
+      onSelect={handleSelect}
+      className="container"
+    >
       {images.map((image, i) => (
         <Carousel.Item key={i}>
-          <img className="d-block w-100" src={image.src} alt={image.alt} />
-          <Carousel.Caption>
-            <h3>{image.caption}</h3>
-          </Carousel.Caption>
+          <img className="w-100" src={image} alt={image} />
         </Carousel.Item>
       ))}
-    </Carousel>
+    </AttractionBanner>
   )
 }
-
-export default ImageCarousel

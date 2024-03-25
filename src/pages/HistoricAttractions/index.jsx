@@ -1,3 +1,6 @@
+import { useEffect, useState } from "react"
+import { api } from "../../services/api"
+
 import { Footer } from "../../components/Footer"
 import { Header } from "../../components/Header"
 import { Card } from "../../components/Card"
@@ -7,6 +10,19 @@ import Carangolas from "../../assets/img/carangolas.png"
 import { Intro } from "../../components/Intro"
 
 export function HistoricAttractions() {
+  const [points, setPoints] = useState([])
+
+  useEffect(() => {
+    async function fetchData() {
+      const response = await api.get("/points")
+      const data = response.data
+
+      const ecologic = data.filter((point) => point.category === "Urbano")
+      setPoints(ecologic)
+    }
+    fetchData()
+  }, [])
+  console.log()
   return (
     <Container>
       <Header />
@@ -19,7 +35,13 @@ export function HistoricAttractions() {
       </section>
       <section>
         <h1>Aonde você quer ir?</h1>
-        <Card />
+        {points.map((point) => (
+          <Card
+            key={point.id}
+            name={point.name}
+            description={point.description}
+          />
+        ))}
       </section>
       <Footer />
     </Container>

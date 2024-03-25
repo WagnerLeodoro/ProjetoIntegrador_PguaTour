@@ -22,6 +22,7 @@ export const Container = styled.footer`
     h3 {
       font-weight: 700;
       font-size: 22px;
+      color: ${({ theme }) => theme.COLORS.TEXT_FOOTER};
     }
   }
 

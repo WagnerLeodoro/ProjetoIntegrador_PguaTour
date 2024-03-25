@@ -1,12 +1,12 @@
 import styled from "styled-components"
 
 export const Container = styled.div`
-  .tourismCard,
   .cardContent {
     display: flex;
   }
   .tourismCard {
-    width: 60%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     margin: 0 auto;
     background-color: rgb(246, 246, 246);
     margin-bottom: 2rem;
@@ -23,6 +23,7 @@ export const Container = styled.div`
   .cardContent {
     flex-direction: column;
     align-items: center;
+    justify-content: space-around;
     margin: 2rem auto 0;
     height: 100%;
   }
