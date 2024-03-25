@@ -1,12 +1,14 @@
 import Logo from "../../assets/img/logo.png"
 
-import { FaBars, FaSearch, FaUser } from "react-icons/fa"
+import { FaBars, FaUser, FaSearch } from "react-icons/fa"
 
 import { Container, Banner } from "./styles"
 import banner from "../../assets/img/banner.png"
+import { useAuth } from "../../hooks/useAuth"
 import { useNavigate } from "react-router-dom"
 
 export function Header() {
+  const { user, signOut } = useAuth()
   const navigate = useNavigate()
 
   return (
@@ -29,7 +31,7 @@ export function Header() {
               <FaBars />
             </span>
           </button>
-          <a className="navbar-brand" href="/home">
+          <a className="navbar-brand" href="/">
             <img src={Logo} className="logo" alt="logo" />
           </a>
           <div
@@ -39,7 +41,7 @@ export function Header() {
             aria-labelledby="offcanvasNavbarLabel"
           >
             <div className="offcanvas-header">
-              <a className="navbar-brand" href="/home">
+              <a className="navbar-brand" href="/">
                 <img src={Logo} className="logo" alt="logo" />
               </a>
               <button
@@ -56,7 +58,7 @@ export function Header() {
                     className="nav-link active"
                     id="linkHome"
                     aria-current="page"
-                    href="/home"
+                    href="/"
                   >
                     Home
                   </a>
@@ -89,12 +91,20 @@ export function Header() {
                   </a>
                 </li>
               </ul>
-              <a href="/login" className="login-lg nav-link active p-0">
-                <div className="botaoConta">
+              {!user ? (
+                <button
+                  onClick={() => navigate("/login")}
+                  className="login-button nav-link p-0"
+                >
                   Login
                   <FaUser className="icon" />
-                </div>
-              </a>
+                </button>
+              ) : (
+                <button onClick={signOut} className="login-button nav-link p-0">
+                  Sair
+                  <FaUser className="icon" />
+                </button>
+              )}
               <form className="d-flex mt-3 formStyle" role="search">
                 <input
                   id="search"
@@ -103,18 +113,33 @@ export function Header() {
                   placeholder="Pesquisar"
                   aria-label="Search"
                 />
-                <button id="search" className="btn btn-success" type="button">
+                <button
+                  id="searchButton"
+                  className="btn btn-success"
+                  type="submit"
+                >
                   <FaSearch />
                 </button>
               </form>
+              {!user ? (
+                <button
+                  onClick={() => navigate("/login")}
+                  className="nav-link login-lg offcanvas p-0"
+                >
+                  Login
+                  <FaUser className="icon" />
+                </button>
+              ) : (
+                <button
+                  onClick={signOut}
+                  className="nav-link login-lg offcanvas p-0"
+                >
+                  Sair
+                  <FaUser className="icon" />
+                </button>
+              )}
             </div>
           </div>
-        </div>
-        <div className="offcanvas align-items-baseline">
-          <a href="/login" className="nav-link active p-0 text-center">
-            <FaUser className="icon" />
-            Login
-          </a>
         </div>
       </nav>
       <Banner>

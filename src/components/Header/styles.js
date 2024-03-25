@@ -29,16 +29,23 @@ export const Container = styled.div`
     color: ${({ theme }) => theme.COLORS.GRAY_100};
   }
 
-  .botaoConta {
+  .offcanvas .login-button {
     display: flex;
-    align-items: baseline;
+    width: 100%;
+    align-items: center;
     justify-content: space-between;
     margin: 12px 0;
     padding: 0;
   }
 
+  .offcanvas .login-lg {
+    flex-direction: column-reverse;
+    display: flex;
+    align-items: center;
+  }
+
   @media (min-width: 980px) {
-    .login-lg {
+    .offcanvas .login-button {
       display: none;
     }
   }

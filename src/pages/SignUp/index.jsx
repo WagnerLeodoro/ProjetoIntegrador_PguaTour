@@ -2,8 +2,43 @@ import { Header } from "../../components/Header"
 import { Footer } from "../../components/Footer"
 
 import { Container } from "./styles"
+import { useState } from "react"
+import { api } from "../../services/api"
+import { useNavigate } from "react-router-dom"
 
 export function SignUp() {
+  const [name, setName] = useState("")
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+
+  const navigate = useNavigate()
+
+  async function handleNewUser() {
+    if (!name) {
+      return alert("Digite um nome de usuário!")
+    }
+    if (!email) {
+      return alert("Digite um email!")
+    }
+    if (!password) {
+      return alert("Digite uma senha para o seu usuário!")
+    }
+
+    try {
+      await api.post("/users", {
+        name,
+        email,
+        password,
+      })
+      alert("Usuário cadastrado com sucesso!")
+      navigate("/login")
+    } catch (error) {
+      if (error.response) {
+        alert(error.response.data.message)
+        window.location.reload()
+      }
+    }
+  }
   return (
     <Container>
       <Header />
@@ -20,46 +55,49 @@ export function SignUp() {
             <div className="container text-center">
               <form className="w-100">
                 <div className="form-group">
-                  <label for="InputUser"></label>
+                  <label htmlFor="InputUser"></label>
                   <input
                     type="text"
                     className="form-control w-75 m-auto"
                     id="InputUser"
                     placeholder="Usuário"
+                    onChange={(e) => setName(e.target.value)}
                   />
                 </div>
                 <div className="form-group">
-                  <label for="InpuEmail"></label>
+                  <label htmlFor="InputEmail"></label>
                   <input
                     type="text"
                     className="form-control w-75 m-auto"
                     id="InputEmail"
                     placeholder="E-mail"
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
 
                 <div className="form-group">
-                  <label for="InputPassword"></label>
+                  <label htmlFor="InputPassword"></label>
                   <input
                     type="password"
                     className="form-control w-75 m-auto"
                     id="InputPassword"
                     placeholder="Senha"
+                    onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
 
                 <div className="button-container d-flex justify-content-around ">
                   <button
                     type="button"
-                    id="accessAccount"
                     className="btn btn-primary btn-form"
+                    onClick={handleNewUser}
                   >
                     Cadastre-se
                   </button>
                   <button
                     type="button"
-                    id="accessAccount"
                     className="btn btn-primary btn-form"
+                    onClick={() => navigate("/login")}
                   >
                     Login
                   </button>
