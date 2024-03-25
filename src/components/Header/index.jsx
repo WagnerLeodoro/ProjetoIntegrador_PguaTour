@@ -4,8 +4,11 @@ import { FaBars, FaSearch, FaUser } from "react-icons/fa"
 
 import { Container, Banner } from "./styles"
 import banner from "../../assets/img/banner.png"
+import { useNavigate } from "react-router-dom"
 
 export function Header() {
+  const navigate = useNavigate()
+
   return (
     <Container>
       <nav
@@ -26,7 +29,7 @@ export function Header() {
               <FaBars />
             </span>
           </button>
-          <a className="navbar-brand" href="#">
+          <a className="navbar-brand" href="/home">
             <img src={Logo} className="logo" alt="logo" />
           </a>
           <div
@@ -36,7 +39,7 @@ export function Header() {
             aria-labelledby="offcanvasNavbarLabel"
           >
             <div className="offcanvas-header">
-              <a className="navbar-brand" href="#">
+              <a className="navbar-brand" href="/home">
                 <img src={Logo} className="logo" alt="logo" />
               </a>
               <button
@@ -53,28 +56,40 @@ export function Header() {
                     className="nav-link active"
                     id="linkHome"
                     aria-current="page"
-                    href="#"
+                    href="/home"
                   >
                     Home
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link active" aria-current="page" href="#">
+                  <a
+                    className="nav-link active"
+                    aria-current="page"
+                    href="/attractions/eco"
+                  >
                     Turismo Ecológico
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link active" aria-current="page" href="#">
+                  <a
+                    className="nav-link active"
+                    aria-current="page"
+                    href="/attractions/historic"
+                  >
                     Turismo Historico
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link active" aria-current="page" href="#">
+                  <a
+                    className="nav-link active"
+                    aria-current="page"
+                    href="/about"
+                  >
                     Quem Somos
                   </a>
                 </li>
               </ul>
-              <a href="#" className="login-lg nav-link active p-0">
+              <a href="/login" className="login-lg nav-link active p-0">
                 <div className="botaoConta">
                   Login
                   <FaUser className="icon" />
@@ -96,7 +111,7 @@ export function Header() {
           </div>
         </div>
         <div className="offcanvas align-items-baseline">
-          <a href="#" className="nav-link active p-0 text-center">
+          <a href="/login" className="nav-link active p-0 text-center">
             <FaUser className="icon" />
             Login
           </a>

@@ -37,7 +37,7 @@ export const Container = styled.div`
     padding: 0;
   }
 
-  @media (min-width: 768px) {
+  @media (min-width: 980px) {
     .login-lg {
       display: none;
     }

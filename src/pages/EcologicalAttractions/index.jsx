@@ -4,8 +4,9 @@ import { Card } from "../../components/Card"
 
 import { Container } from "./styles"
 import Carangolas from "../../assets/img/carangolas.png"
+import { Intro } from "../../components/Intro"
 
-export function HistoricAttractions() {
+export function EcologicalAttractions() {
   return (
     <Container>
       <Header />
